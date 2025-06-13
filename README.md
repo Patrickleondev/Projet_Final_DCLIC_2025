@@ -91,7 +91,7 @@ Pour toute question ou suggestion : **gkpl0010@mail.com**
 MIT License
 
 ---
-Développé par l'équipe NoteZone dans le cadre du projet de formation DCLIC 2025.
+Développé par Patrickleondev dans le cadre du projet de formation DCLIC 2025 Niveau Intermédiare.
 >>>>>>> f731744 (Livraison finale NoteZone - Projet DCLIC 2025)
 
 ![NoteZone Liste de Note](NoteZone.jpg)
