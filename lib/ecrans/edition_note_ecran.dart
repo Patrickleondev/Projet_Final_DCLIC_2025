@@ -79,6 +79,10 @@ class EditionNoteEcranState extends State<EditionNoteEcran> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_note == null ? 'Nouvelle Note' : 'Modifier Note'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context), // Flèche de retour corrigée
+        ),
         actions: [
           if (_note != null)
             IconButton(

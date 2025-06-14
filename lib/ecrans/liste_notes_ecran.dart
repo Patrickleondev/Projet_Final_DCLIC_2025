@@ -65,6 +65,36 @@ class ListeNotesEcranState extends State<ListeNotesEcran> {
     });
   }
 
+  void _supprimerNote(Note note) async {
+    final confirmation = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Supprimer cette note ?'),
+          content: Text(
+            'Cette action est irréversible. La note "${note.titre}" sera définitivement supprimée.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Non'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Oui'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmation == true) {
+      final db = await AideBaseDeDonnees.instance.database;
+      await db.delete('notes', where: 'id = ?', whereArgs: [note.id]);
+      _chargerNotes(); // Recharge les notes après suppression
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,6 +190,8 @@ class ListeNotesEcranState extends State<ListeNotesEcran> {
                           child: CarteNote(
                             note: _filteredNotes[index],
                             onNoteChanged: _chargerNotes,
+                            onDelete:
+                                () => _supprimerNote(_filteredNotes[index]),
                           ),
                         );
                       },

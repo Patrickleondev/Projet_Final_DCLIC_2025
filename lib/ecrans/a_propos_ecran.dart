@@ -42,7 +42,11 @@ Pour toute question, contactez-nous à : gkpl0010@mail.com
         title: Text('À propos'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed:
+              () => Navigator.pushNamed(
+                context,
+                '/liste_notes',
+              ), // Flèche de retour
         ),
       ),
       body: SingleChildScrollView(

@@ -4,8 +4,14 @@ import '../modeles/note.dart';
 class CarteNote extends StatelessWidget {
   final Note note;
   final VoidCallback? onNoteChanged;
+  final VoidCallback? onDelete;
 
-  const CarteNote({super.key, required this.note, this.onNoteChanged});
+  const CarteNote({
+    super.key,
+    required this.note,
+    this.onNoteChanged,
+    this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,16 @@ class CarteNote extends StatelessWidget {
       child: ListTile(
         title: Text(note.titre),
         subtitle: Text(note.contenu),
-        trailing: Text(getTempsRelatif(note.dateCreation)),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(getTempsRelatif(note.dateCreation)),
+            IconButton(
+              icon: Icon(Icons.delete, color: Colors.red),
+              onPressed: onDelete, // Appelle la méthode de suppression
+            ),
+          ],
+        ),
         onTap: () async {
           await Navigator.pushNamed(context, '/edition_note', arguments: note);
           if (onNoteChanged != null) onNoteChanged!();
