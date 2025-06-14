@@ -17,6 +17,7 @@ class InscriptionEcranState extends State<InscriptionEcran> {
   final TextEditingController _confirmationController = TextEditingController();
   String? _erreur;
   bool _chargement = false;
+  bool _motDePasseVisible = false; // Ajout de la variable pour la visibilité
 
   Future<void> _inscrire() async {
     setState(() {
@@ -121,16 +122,44 @@ class InscriptionEcranState extends State<InscriptionEcran> {
                     SizedBox(height: 16),
                     TextFormField(
                       controller: _motDePasseController,
-                      decoration: InputDecoration(labelText: 'Mot de passe'),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Mot de passe',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _motDePasseVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _motDePasseVisible = !_motDePasseVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText:
+                          !_motDePasseVisible, // Basculer la visibilité
                     ),
                     SizedBox(height: 16),
                     TextFormField(
                       controller: _confirmationController,
                       decoration: InputDecoration(
                         labelText: 'Confirmer le mot de passe',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _motDePasseVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _motDePasseVisible = !_motDePasseVisible;
+                            });
+                          },
+                        ),
                       ),
-                      obscureText: true,
+                      obscureText:
+                          !_motDePasseVisible, // Basculer la visibilité
                     ),
                     SizedBox(height: 16),
                     if (_erreur != null)

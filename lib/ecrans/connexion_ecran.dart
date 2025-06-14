@@ -15,6 +15,7 @@ class ConnexionEcranState extends State<ConnexionEcran> {
   final TextEditingController _motDePasseController = TextEditingController();
   String? _erreur;
   bool _chargement = false;
+  bool _motDePasseVisible = false; // Ajout de la variable pour la visibilité
 
   Future<void> _connecter() async {
     setState(() {
@@ -109,8 +110,23 @@ class ConnexionEcranState extends State<ConnexionEcran> {
                     SizedBox(height: 16),
                     TextFormField(
                       controller: _motDePasseController,
-                      decoration: InputDecoration(labelText: 'Mot de passe'),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Mot de passe',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _motDePasseVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _motDePasseVisible = !_motDePasseVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText:
+                          !_motDePasseVisible, // Basculer la visibilité
                     ),
                     SizedBox(height: 16),
                     if (_erreur != null)
